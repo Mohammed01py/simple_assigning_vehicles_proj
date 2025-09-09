@@ -1,9 +1,8 @@
 import 'package:assignment_three/electric_powered.dart';
-import 'package:assignment_three/vehicle_status.dart';
 import 'package:assignment_three/vehicles.dart';
 
 class ElectricBicycle extends Vehicles with ElectricPowered {
-  ElectricBicycle(String name, int maxSpeed, VehicleStatus status) : super(name, maxSpeed, status);
+  ElectricBicycle(super.name, super.maxSpeed, super.status);
 
   @override
   void move() {
@@ -13,7 +12,7 @@ class ElectricBicycle extends Vehicles with ElectricPowered {
 
   @override
   void displayInfo() {
-    print("Name: $name\nMax Speed: $maxSpeed km/h\nStatus: $status\nBattery Level: $batteryLevel%\n");
+    print("Name: $name\nMax Speed: $maxSpeed km/h\nStatus: $statusString\nBattery Level: $batteryLevel%\n");
   }
   @override
   Map<String, dynamic> toJson() {

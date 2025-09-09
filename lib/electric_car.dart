@@ -1,9 +1,8 @@
 import 'package:assignment_three/electric_powered.dart';
-import 'package:assignment_three/vehicle_status.dart';
 import 'package:assignment_three/vehicles.dart';
 
 class ElectricCar extends Vehicles with ElectricPowered {
-  ElectricCar(String name, int maxSpeed, VehicleStatus status) : super(name, maxSpeed, status);
+  ElectricCar(super.name, super.maxSpeed, super.status);
 
   @override
   void move() {
