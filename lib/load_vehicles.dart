@@ -10,13 +10,24 @@ import 'package:assignment_three/vehicles.dart';
 
 // Load from JSON
 List<Vehicles> loadVehicles() {
+  try {
   File file = File('vehicles.json');
 
   // Check if file exists
-  if (!file.existsSync()) return [];
+  if (!file.existsSync()) {
+      print("There's no vehicles.json file");
+      return [];
+    }
+    String content = file.readAsStringSync();
+
+    if (content.trim().isEmpty) {
+      print("vehicles.json is empty");
+      return [];
+    }
+
 
   // Decode JSON file 
-  List<dynamic> jsonList = jsonDecode(file.readAsStringSync());
+  List<dynamic> jsonList = jsonDecode(content);
 
   // Map the JSON back
   return jsonList.map((json) {
@@ -25,16 +36,25 @@ List<Vehicles> loadVehicles() {
     int maxSpeed = json['maxSpeed'];
     VehicleStatus status = VehicleStatus.values.firstWhere(
         (e) => e.toString().split('.').last == json['status']);
-
-    if (type == 'ElectricCar') {
+        
+  switch (type) {
+    case 'ElectricCar':
       return ElectricCar(name, maxSpeed, status)..batteryLevel = json['batteryLevel'];
-    } else if (type == 'ElectricBicycle') {
+    case 'ElectricBicycle':
       return ElectricBicycle(name, maxSpeed, status)..batteryLevel = json['batteryLevel'];
-    } else if (type == 'Car') {
+    case 'Car':
       return Car(name, maxSpeed, status);
-    } else if (type == 'Bicycle') {
+    case 'Bicycle':
       return Bicycle(name, maxSpeed, status);
-    }
+    default:
+      print("Unknown vehicle type: $type");
     return null; // will be null if there's nothing
+  }
+  
   }).whereType<Vehicles>().toList(); // Remoce null values
+  } catch (e) {
+    print("Error loading vehicles: $e");
+    print("Starting with empty list.");
+    return [];
+  }
 }

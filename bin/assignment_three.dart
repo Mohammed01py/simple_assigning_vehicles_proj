@@ -13,6 +13,16 @@ import 'package:assignment_three/car.dart';
 void main(){
   List<Vehicles> vehicles = loadVehicles();
 
+
+if (vehicles.isNotEmpty) {
+  stdout.write("Found ${vehicles.length} existing vehicles. Do you want to (1) keep them or (2) start again? ");
+  String? keepChoice = stdin.readLineSync();
+  if (keepChoice == '2') {
+    vehicles.clear();
+    print("Starting with a fresh list.");
+  }
+}
+
     while (true) {
     // Ask you for vehicle type
     stdout.write("What vehicle type you wanna choose? (1): for normal car. (2): for normal bicycle. (3): for electric car. (4): for electric bicycle. (5): to exit and see the \"Vehicle Report\":\n");
@@ -60,28 +70,30 @@ void main(){
   }
 
   // Filtering Area
-  stdout.write("Do you want to filter by status? y=\"yes\" n=\"no\":\n");
-  String? filterChoice = stdin.readLineSync();
-  if (filterChoice?.toLowerCase() == 'y') {
-    stdout.write("Enter status to filter (idle, moving, maintenance):\n");
-    String? filterStatus = stdin.readLineSync();
-    vehicles = vehicles.where((v) => v.status.toString().split('.').last == filterStatus).toList();
+stdout.write("Do you want to filter by status? y=\"yes\" n=\"no\":\n");
+String? filterChoice = stdin.readLineSync();
+List<Vehicles> displayVehicles = vehicles;
+if (filterChoice?.toLowerCase() == 'y') {
+  stdout.write("Enter status to filter (idle, moving, maintenance):\n");
+  String? filterStatus = stdin.readLineSync();
+  displayVehicles = vehicles.where((v) => v.status.toString().split('.').last == filterStatus).toList();
 }
+
 
   // Sotring Area
 stdout.write("Do you want to sort the report? type (1) for speed, (2) for name, (3) for none:\n");
 String? sortChoice = stdin.readLineSync();
 if (sortChoice == '1') {
-  vehicles.sort((a, b) => b.maxSpeed.compareTo(a.maxSpeed));
+  displayVehicles.sort((a, b) => b.maxSpeed.compareTo(a.maxSpeed));
 } else if (sortChoice == '2') {
-  vehicles.sort((a, b) => a.name.compareTo(b.name));
+  displayVehicles.sort((a, b) => a.name.compareTo(b.name));
 }
 
 
 
   // Display all vehicles
   print("\nVehicle Report:\n---------------");
-  for (var vehicle in vehicles) {
+  for (var vehicle in displayVehicles) {
     vehicle.displayInfo(); // Call displayInfo() for each vehicle
   }
   saveVehicles(vehicles);

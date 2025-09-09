@@ -1,10 +1,9 @@
 // ignore_for_file: use_super_parameters
 
-import 'package:assignment_three/vehicle_status.dart';
 import 'package:assignment_three/vehicles.dart';
 
 class Bicycle extends Vehicles {
-  Bicycle(String name, int maxSpeed, VehicleStatus status): super(name, maxSpeed, status);
+  Bicycle(super.name, super.maxSpeed, super.status);
 
   @override
   void move() {

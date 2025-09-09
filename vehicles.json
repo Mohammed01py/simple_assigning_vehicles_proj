@@ -1,0 +1,1 @@
+[{"name":"MG 6","maxSpeed":200,"status":"moving","type":"Car"},{"name":"bicycle","maxSpeed":40,"status":"idle","type":"ElectricBicycle","batteryLevel":100}]

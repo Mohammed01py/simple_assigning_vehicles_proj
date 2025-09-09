@@ -13,4 +13,8 @@ class Car extends Vehicles with ElectricPowered {
     print("The $name is moving at $maxSpeed km/h");
     useBattery(20);
   }  
+  @override
+  Map<String, dynamic> toJson() {
+    return super.toJson()..addAll({'type': 'Car'});
+  }
 }
