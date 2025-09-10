@@ -14,6 +14,7 @@ void main(){
   List<Vehicles> vehicles = loadVehicles();
 
 
+  // Asking to load from JSON
 if (vehicles.isNotEmpty) {
   stdout.write("Found ${vehicles.length} existing vehicles. Do you want to (1) keep them or (2) start again? ");
   String? keepChoice = stdin.readLineSync();
@@ -46,7 +47,7 @@ if (vehicles.isNotEmpty) {
       // A really important thing I have learnt about ".values" which will get all values from a map or enum.
       status = VehicleStatus.values.firstWhere(    
       (e) => e.toString().split('.').last == statusInput, orElse: () { // In this line we converted enum to string
-        throw Exception("Invalid status");       }, // "e.toString": It will looks like "VehicleStatus.available"
+        throw Exception("Wrong status");       }, // "e.toString": It will looks like "VehicleStatus.available"
     ); // ".split('.')": Splits the string at the "."
         
 
